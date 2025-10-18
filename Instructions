@@ -1,0 +1,57 @@
+*STEP 1:*
+    Open MySQL Workbench and connect to your local MySQL server.
+    Run the following SQL queries to create the database and table:
+
+      -- Create database
+      CREATE DATABASE IF NOT EXISTS tours_travels;
+      USE tours_travels;
+      
+      -- Table to store booking details
+      CREATE TABLE IF NOT EXISTS Booking_details (
+          Pname VARCHAR(50),
+          PhNo VARCHAR(20),
+          NoPsng INT,
+          Address VARCHAR(100),
+          Package VARCHAR(100),
+          DtTrvl DATE,
+          amount INT,
+          BkNo INT PRIMARY KEY
+      );
+      Ensure the Python code’s connection matches your MySQL credentials:
+    
+      def get_db_connection():
+          conn = connection.MySQLConnection(
+              user="root",
+              host="localhost",
+              password="root123",
+              database="tours_travels"
+          )
+          return conn
+      Note: Run these SQL queries before running the Python code, so the application can store booking information correctly.
+*STEP2:*
+    Open VS Code.
+    Click File → Open Folder → New Folder, name it something like travel_booking_website.
+    Inside the folder, create the following structure:
+    
+    travel_booking_website/
+    │
+    ├── app.py
+    ├── templates/
+    │   ├── base.html
+    │   ├── home.html
+    │   ├── packages.html
+    │   ├── book.html
+    │   ├── cancel.html
+    │   └── terms.html
+    └── static/
+        └── style.css
+*STEP3*:
+    Enable VS Code Port Forwarding:
+      Open the Remote Explorer / Dev Tunnels panel in VS Code.
+      Find your running Flask server port (default 5000) and click Forward Port.(make it public)
+      VS Code will generate a public URL that anyone can open in their browser.
+    Share the generated URL with others to access the app remotely.
+    
+    Note: Each user running the app themselves will get a different public link.
+    
+    Important: Make sure your MySQL database is running locally, and the credentials in app.py match your MySQL setup before using the app.
