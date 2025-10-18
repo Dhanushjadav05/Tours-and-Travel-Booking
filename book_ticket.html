@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Ticket</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<h1>Book Your Ticket</h1>
+
+<form method="POST">
+    <label>Name:</label>
+    <input type="text" name="name" value="{{ request.form.name }}" required><br>
+
+    <label>Phone:</label>
+    <input type="tel" name="phone" value="{{ request.form.phone }}" required><br>
+
+    <label>Passengers:</label>
+    <input type="number" name="passengers" value="{{ request.form.passengers or 1 }}" min="1" required><br>
+
+    <label>Address:</label>
+    <input type="text" name="address" value="{{ request.form.address }}" required><br>
+
+    <label>Package:</label>
+    <select name="package">
+        {% for name, price in packages.items() %}
+            <option value="{{ name }}" {% if request.form.package == name %}selected{% endif %}>
+                {{ name }} - ₹{{ price }} per person
+            </option>
+        {% endfor %}
+    </select><br>
+
+    <label>Date of Travel:</label>
+    <input type="date" name="date" value="{{ request.form.date }}" required><br><br>
+
+    <h2>Payment</h2>
+
+    {% if request.form.passengers %}
+        <p><em>For {{ request.form.passengers }} passenger(s), click "Calculate Amount" to view the total cost.</em></p>
+    {% endif %}
+
+    {% if calculated_amount %}
+        <p><strong>Amount to pay (for {{ request.form.passengers }} passengers): ₹{{ calculated_amount }}</strong></p>
+    {% endif %}
+
+    <!-- Amount to Pay + Calculate button side by side -->
+    <label>Amount to Pay:</label>
+    <input type="number" name="amount" value="{{ calculated_amount or request.form.amount }}" required readonly>
+    <button type="submit" name="calculate">Calculate Amount</button><br><br>
+
+    <label>Select Payment Method:</label><br>
+    <select name="payment_method" onchange="this.form.submit()">
+        <option value="">--Choose--</option>
+        <option value="upi" {% if selected_payment_method == 'upi' %}selected{% endif %}>UPI (Google Pay/PhonePe)</option>
+        <option value="card" {% if selected_payment_method == 'card' %}selected{% endif %}>Credit/Debit Card</option>
+    </select><br><br>
+
+    {% if selected_payment_method == 'upi' %}
+    <div id="upi_fields">
+        <label>UPI ID:</label>
+        <input type="text" name="upi_id"><br>
+        <label>UPI PIN:</label>
+        <input type="password" name="upi_pin"><br>
+    </div>
+
+    {% elif selected_payment_method == 'card' %}
+    <div id="card_fields">
+        <label>Card Holder Name:</label>
+        <input type="text" name="card_name"><br>
+        <label>Card Number:</label>
+        <input type="text" name="card_number"><br>
+        <label>Expiry (MMYY):</label>
+        <input type="text" name="expiry"><br>
+        <label>CVV:</label>
+        <input type="password" name="cvv"><br>
+    </div>
+    {% endif %}
+
+    <br>
+    <button type="submit" name="book">Book</button>
+</form>
+
+<a href="/">Back to Home</a>
+</body>
+</html>

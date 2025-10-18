@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cancel Ticket</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<h1>Cancel Your Ticket</h1>
+<form method="POST">
+    Enter Booking Number: <input type="number" name="booking_no" required><br>
+    <input type="submit" value="Cancel">
+</form>
+<a href="/">Back to Home</a>
+</body>
+</html>

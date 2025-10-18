@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Success</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+{% if canceled %}
+<h1>Your booking has been cancelled successfully!</h1>
+{% else %}
+<h1>Booking Successful!</h1>
+<p>Your booking number: {{ booking_no }}</p>
+<p>Total Amount: ₹{{ amount }}</p>
+<p>Payment Method: {{ payment_method }}</p>
+{% endif %}
+<a href="/">Back to Home</a>
+</body>
+</html>

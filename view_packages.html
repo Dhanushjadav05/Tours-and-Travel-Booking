@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Packages</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<h1>Available Packages</h1>
+<ul>
+{% for name, price in packages.items() %}
+    <li>{{ name }} - ₹{{ price }} per person</li>
+{% endfor %}
+</ul>
+<a href="/">Back to Home</a>
+</body>
+</html>
